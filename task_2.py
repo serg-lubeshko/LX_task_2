@@ -4,24 +4,6 @@ import string
 
 @functools.total_ordering
 class Version:
-    """
-    1.1.0-alpha       >>>      1.1. 0.0
-    1.2.0-alpha.1     >>>      1.2. 0.0.1
-
-    1.0.1b            >>>      1.0. 1.1    ??? на левом должен упасть
-    1.0.10-alpha.beta >>>      1.0.10.0.1
-
-    1.0.0-rc.1        >>>      1.0. 0.2.1
-    0.3.0b            >>>      0.3. 0.1
-    0.3.0b4           >>>      0.3. 0.1.4???????
-
-    @functools.total_ordering
-    Given a class defining one or more rich comparison ordering methods, this class decorator supplies the rest.
-    This simplifies the effort involved in specifying all of the possible rich comparison operations:
-    The class must define one of __lt__(), __le__(), __gt__(), or __ge__(). In addition, the class should supply
-    an __eq__() method
-
-    """
     dict_replace = {
         'alpha': '0',
         'beta': '1',
@@ -62,9 +44,7 @@ class Version:
             part_letter = [0]
 
         numeric_digit = self.numeric_replace_part_digit_letter(part_digit)
-        # print(numeric_digit, 'yyyyyyyyyy')
         numeric_letter = self.numeric_replace_part_digit_letter(part_letter)
-        # print(numeric_digit)
         return numeric_digit, numeric_letter
 
     def __eq__(self, other):
@@ -74,7 +54,6 @@ class Version:
         return False
 
     def __lt__(self, other):
-        # print(self.version_digit,'<digit', 'uuuu', other.version_digit)
         if self.version_letter < other.version_letter:
             if self.version_letter < other.version_letter:
                 return True
